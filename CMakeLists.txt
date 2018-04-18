@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.1)
 
 project (taller CXX)
 include_directories(Model)
+include_directories(View)
 include_directories(Controller)
 
 add_executable(taller main.cpp 
@@ -10,6 +11,8 @@ add_executable(taller main.cpp
   Model/Model.h
   Controller/Command.cpp
   Controller/Command.h
+  View/ViewModel.cpp
+  View/ViewModel.h
     )
 
 set_property(TARGET taller PROPERTY CXX_STANDARD 11)
