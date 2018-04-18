@@ -13,6 +13,7 @@ before_install:
 - sudo apt-get install -y libgles2-mesa-dev
 - sudo apt-get install -y  libsdl2-dev
 - sudo apt-get install -y  libsdl2-image-dev 
+- sudo apt-get install -y  libyaml-cpp-dev
 before_script:
   - mkdir build
   - cd build
