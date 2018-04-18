@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.1)
 
 project (taller CXX)
 
-add_executable(main main.cpp)
+add_executable(taller main.cpp)
 
 set_property(TARGET taller PROPERTY CXX_STANDARD 11)
 
