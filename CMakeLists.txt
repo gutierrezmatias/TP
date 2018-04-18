@@ -12,6 +12,8 @@ include_directories(Configs)
 add_executable(taller main.cpp 
   Model/Model.cpp
   Model/Model.h
+  Model/Activo.h
+  Model/Activo.cpp
   Controller/Command.cpp
   Controller/Command.h
   View/ViewModel.cpp
