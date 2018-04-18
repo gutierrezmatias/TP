@@ -6,11 +6,8 @@ file(GLOB taller_SRC
     "*.h"
     "*.cpp"
 )
-file(GLOB taller_Model_SRC
-    "${CMAKE_CURRENT_SOURCE_DIR}/Model/*.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Model/*.cpp"
-)
-file(GLOB Model_Sources RELATIVE "Model" "*.cpp")
+
+file(GLOB Model_Sources RELATIVE "Model" "*.cpp" "*.h")
 
 add_executable(taller ${taller_SRC} ${Model_Sources})
 
