@@ -5,8 +5,9 @@ project (taller CXX)
 file(GLOB taller_SRC
     "*.h"
     "*.cpp"
-    "//*.cpp"
 )
+
+add_subdirectory(Model)
 add_executable(taller ${taller_SRC})
 
 set_property(TARGET taller PROPERTY CXX_STANDARD 11)
