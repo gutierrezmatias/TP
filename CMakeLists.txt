@@ -18,6 +18,12 @@ add_executable(taller main.cpp
   View/ViewModel.h
   Utils/Util_Common.cpp
   Utils/Util_Common.h
+  Utils/Util_LoggerObserver.cpp
+  Utils/Util_LoggerObserver.h
+  Utils/Util_LoggerSubject.cpp
+  Utils/Util_LoggerSubject.h
+  Utils/Util_Configuracion.cpp
+  Utils/Util_Configuracion.h
     )
 
 set_property(TARGET taller PROPERTY CXX_STANDARD 11)
