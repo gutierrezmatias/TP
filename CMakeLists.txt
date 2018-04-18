@@ -1,11 +1,11 @@
 
 cmake_minimum_required(VERSION 3.1)
 
-project (08_geometry_rendering CXX)
+project (taller CXX)
 
-add_executable(08_geometry_rendering 08_geometry_rendering.cpp)
+add_executable(main main.cpp)
 
-set_property(TARGET 08_geometry_rendering PROPERTY CXX_STANDARD 11)
+set_property(TARGET main PROPERTY CXX_STANDARD 11)
 
 INCLUDE(FindPkgConfig)
 
