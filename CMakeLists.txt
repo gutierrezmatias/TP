@@ -6,6 +6,7 @@ file(GLOB taller_SRC
     "*.h"
     "*.cpp"
     "/Model/*.cpp"
+    "/Model/*.h"
 )
 
 
