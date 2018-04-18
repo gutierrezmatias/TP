@@ -3,7 +3,7 @@ and may not be redistributed without written permission.*/
 
 //Using SDL, SDL_image, standard IO, math, and strings
 #include<SDL2/SDL.h>
-#include <SDL_image.h>
+#include <SDL2/SDL_image.h>
 #include <stdio.h>
 #include <string>
 #include <cmath>
