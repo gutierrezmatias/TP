@@ -5,7 +5,7 @@ project (taller CXX)
 
 add_executable(main main.cpp)
 
-set_property(TARGET main PROPERTY CXX_STANDARD 11)
+set_property(TARGET taller PROPERTY CXX_STANDARD 11)
 
 INCLUDE(FindPkgConfig)
 
