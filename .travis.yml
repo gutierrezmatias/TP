@@ -13,16 +13,9 @@ before_install:
 - sudo apt-get install -y libgles2-mesa-dev
 - sudo apt-get install -y  libsdl2-dev
 - sudo apt-get install -y  libsdl2-image-dev 
-script:
+before_script:
+  - mkdir build
+  - cd build
+  - cmake ..
 
-after_success:
-
-branches:
-  only:
-  - master
-notifications:
-  email: false
- 
-   
-env:
-  global:
+script: make
