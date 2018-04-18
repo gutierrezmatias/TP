@@ -5,8 +5,8 @@ project (taller CXX)
 include_directories(Model)
 
 add_executable(taller main.cpp 
-  Model/*.cpp
-  Model/*.h
+  Model/Model.cpp
+  Model/Model.h
     )
 
 set_property(TARGET taller PROPERTY CXX_STANDARD 11)
