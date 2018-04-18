@@ -24,6 +24,8 @@ add_executable(taller main.cpp
   Utils/Util_LoggerSubject.h
   Utils/Util_Configuracion.cpp
   Utils/Util_Configuracion.h
+  Utils/Util_Parser.cpp
+  Utils/Util_Parser.h
     )
 
 set_property(TARGET taller PROPERTY CXX_STANDARD 11)
