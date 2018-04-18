@@ -5,10 +5,13 @@ project (taller CXX)
 file(GLOB taller_SRC
     "*.h"
     "*.cpp"
-    "/Model/*.cpp"
-    "/Model/*.h"
 )
 
+add_subdirectory (Model)
+add_subdirectory (Images)
+add_subdirectory (Controller)
+add_subdirectory (Utils)
+add_subdirectory (View)
 
 add_executable(taller ${taller_SRC})
 
