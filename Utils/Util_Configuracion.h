@@ -1,7 +1,7 @@
 #ifndef UTIL_CONFIGURACION_H_
 #define UTIL_CONFIGURACION_H_
 
-#include "Model/Model.h"
+#include "Model.h"
 #include "Model_Jugador.h"
 #include "Formacion312.h"
 #include "Formacion33.h"
