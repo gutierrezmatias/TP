@@ -12,8 +12,20 @@ include_directories(Configs)
 add_executable(taller main.cpp 
   Model/Model.cpp
   Model/Model.h
-  Model/Activo.h
   Model/Activo.cpp
+  Model/Activo.h
+  Model/Estado.cpp
+  Model/Estado.h
+  Model/Formacion.cpp
+  Model/Formacion.h
+  Model/Formacion312.cpp
+  Model/Formacion312.h
+  Model/Formacion321.cpp
+  Model/Formacion321.h
+  Model/Formacion33.cpp
+  Model/Formacion33.h
+  Model/Inactivo.cpp
+  Model/Inactivo.h
   Controller/Command.cpp
   Controller/Command.h
   View/ViewModel.cpp
