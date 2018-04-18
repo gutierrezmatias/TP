@@ -2,8 +2,10 @@
 cmake_minimum_required(VERSION 3.1)
 
 project (taller CXX)
+include_directories(Model)
 
-add_executable(taller src/main.cpp Model/*.cpp
+add_executable(taller main.cpp 
+  Model/*.cpp
   Model/*.h
     )
 
