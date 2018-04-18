@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.1)
 
 project (taller CXX)
 file(GLOB taller_SRC
+    "*.h"
     "*.cpp"
 )
 add_executable(taller ${taller_SRC})
