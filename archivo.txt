@@ -1,3 +1,0 @@
-0;idioma1;idioma2;idioma3;idioma4
-11;hola; hello; hallo;bonjour
-22;que ace; how are you; guten tag;ca va
