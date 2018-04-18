@@ -2,14 +2,10 @@
 cmake_minimum_required(VERSION 3.1)
 
 project (taller CXX)
-file(GLOB taller_SRC
-    "*.h"
-    "*.cpp"
-)
 
-file(GLOB Model_Sources RELATIVE "Model" "*.cpp" "*.h")
-
-add_executable(taller ${taller_SRC} ${Model_Sources})
+add_executable(taller src/main.cpp Model/*.cpp
+  Model/*.h
+    )
 
 set_property(TARGET taller PROPERTY CXX_STANDARD 11)
 
