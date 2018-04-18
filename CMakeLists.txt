@@ -6,11 +6,13 @@ file(GLOB taller_SRC
     "*.h"
     "*.cpp"
 )
+file(GLOB taller_Model_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/Model/*.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Model/*.cpp"
+)
 
-add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/Model)
 
-
-add_executable(taller ${taller_SRC})
+add_executable(taller ${taller_SRC} ${taller_Model_SRC})
 
 set_property(TARGET taller PROPERTY CXX_STANDARD 11)
 
