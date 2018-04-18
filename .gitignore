@@ -1,0 +1,18 @@
+
+�� l�U
+
+*.o
+
+bin/Debug/TallerProgramacionTP
+
+TallerProgramacionTP\.depend
+
+TallerProgramacionTP\.layout
+
+*.depend
+
+*.layout
+
+TallerProgramacionTP\.cbp
+
+*.cbp
