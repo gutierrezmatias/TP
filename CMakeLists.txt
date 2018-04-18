@@ -5,6 +5,7 @@ project (taller CXX)
 file(GLOB taller_SRC
     "*.h"
     "*.cpp"
+    "//*.cpp"
 )
 add_executable(taller ${taller_SRC})
 
