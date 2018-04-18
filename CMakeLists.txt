@@ -7,11 +7,8 @@ file(GLOB taller_SRC
     "*.cpp"
 )
 
-add_subdirectory (Model)
-add_subdirectory (Images)
-add_subdirectory (Controller)
-add_subdirectory (Utils)
-add_subdirectory (View)
+add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/Model)
+
 
 add_executable(taller ${taller_SRC})
 
