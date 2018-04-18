@@ -8,7 +8,7 @@ file(GLOB taller_SRC
     "/Model/*.cpp"
 )
 
-add_subdirectory(/Model)
+
 add_executable(taller ${taller_SRC})
 
 set_property(TARGET taller PROPERTY CXX_STANDARD 11)
