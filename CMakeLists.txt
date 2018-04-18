@@ -5,6 +5,9 @@ project (taller CXX)
 include_directories(Model)
 include_directories(View)
 include_directories(Controller)
+include_directories(Utils)
+include_directories(Images)
+include_directories(Configs)
 
 add_executable(taller main.cpp 
   Model/Model.cpp
@@ -13,6 +16,8 @@ add_executable(taller main.cpp
   Controller/Command.h
   View/ViewModel.cpp
   View/ViewModel.h
+  Utils/Util_Common.cpp
+  Utils/Util_Common.h
     )
 
 set_property(TARGET taller PROPERTY CXX_STANDARD 11)
