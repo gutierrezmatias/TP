@@ -52,8 +52,6 @@ Controller/DisminuirVelocidadX.cpp
 Controller/DisminuirVelocidadX.h
 Controller/DisminuirVelocidadY.cpp
 Controller/DisminuirVelocidadY.h
-Controller/StopJugador.cpp
-Controller/StopJugador.h 
 View/ViewModel.cpp
 View/ViewModel.h
 View/Entity.cpp
