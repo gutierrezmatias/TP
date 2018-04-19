@@ -34,8 +34,6 @@ Model/Model_Jugador.cpp
 Model/Model_Jugador.h
 Model/Model_Pelota.cpp
 Model/Model_Pelota.h
-Controller/Acelerar.cpp
-Controller/Acelerar.h
 Controller/AumentarVelocidadX.cpp
 Controller/AumentarVelocidadX.h
 Controller/AumentarVelocidadY.cpp
@@ -48,8 +46,6 @@ Controller/Controller.cpp
 Controller/Controller.h
 Controller/Controller_Jugador.cpp
 Controller/Controller_Jugador.h
-Controller/Desacelerar.cpp
-Controller/Desacelerar.h
 Controller/DesminuirVelocidadY.cpp
 Controller/DesminuirVelocidadY.h
 Controller/DisminuirVelocidadX.cpp
@@ -57,7 +53,9 @@ Controller/DisminuirVelocidadX.h
 Controller/DisminuirVelocidadY.cpp
 Controller/DisminuirVelocidadY.h
 Controller/StopJugador.cpp
-Controller/StopJugador.h View/ViewModel.cpp
+Controller/StopJugador.h 
+View/ViewModel.cpp
+View/ViewModel.h
 View/Entity.cpp
 View/Entity.h
 View/Event.cpp
