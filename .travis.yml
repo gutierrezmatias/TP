@@ -21,3 +21,5 @@ before_script:
   - cmake ..
 
 script: make
+notifications:
+  email: false
