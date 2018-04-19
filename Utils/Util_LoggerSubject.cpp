@@ -46,3 +46,14 @@ void Util_LoggerSubject::NotifyError(std::string message, std::string mvc)
         }
     }
 }
+
+void Util_LoggerSubject::NotifyLevel(int newLevel)
+{
+    for(vector<Util_LoggerObserver*>::const_iterator iter = list.begin(); iter != list.end(); ++iter)
+    {
+        if(*iter != 0)
+        {
+            (*iter)->updateLevel(newLevel);
+        }
+    }
+}

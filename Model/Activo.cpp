@@ -37,3 +37,7 @@ void Activo::move() {
 bool Activo::estaActivo() {
     return true;
 }
+
+void Activo::acelerar() {
+    this->aceleracion = VELOCIDAD_ACELERADA;
+}

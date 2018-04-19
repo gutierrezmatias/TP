@@ -5,6 +5,7 @@
 
 ViewModel::ViewModel(Model* model, SDL_Renderer* gRenderer, SDL_Rect* camara)
 {
+
     this->viewPelota.initialize(model->getPelota(), gRenderer);
     this->viewCancha.initialize(gRenderer);
     this->viewJugadores = new View_Jugador[CANTVISTASJUG];

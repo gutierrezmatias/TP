@@ -5,6 +5,7 @@
 #include <string>
 #include <list>
 #include <yaml-cpp/yaml.h>
+#include "Util_LoggerSubject.h"
 
 using namespace std;
 
@@ -64,14 +65,14 @@ struct Parametros
 };
 
 
-class Util_Parser
+class Util_Parser: public Util_LoggerSubject
 {
 public:
     inline bool levelValido(std::string &name);
     inline bool casacaValido(std::string &name);
     inline bool formacionValido(std::string &name);
     inline bool fileExists(const std::string& name);
-    void mezclar(Parametros &resultado, Parametros superParametros);
+    void mezclar(Parametros &resultado, Parametros parametros);
     void llenarParametrosObtenidos( std::vector<YAML::Node> baseNode, Parametros &parametrosObtenidos);
     Equipo read_yaml_Equipo(std::vector<YAML::Node> baseNode);
     Debug read_yaml_Debug(std::vector<YAML::Node> baseNode);

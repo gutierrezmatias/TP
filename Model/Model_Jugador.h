@@ -40,7 +40,7 @@ public:
     void aumentarVelocidadX();
     void aumentarVelocidadY();
     bool estaActivo();
-    void stop();
+    void detenerVelocidad();
 
     void activar();
     void desactivar();
@@ -48,10 +48,15 @@ public:
     void setCasacaAlternativa();
     bool casacaPrincipal();
     bool collide(SDL_Rect * camara);
+    void acelerar();
+    void desacelerar();
+    void setCasacaSprite(std::string casacaName);
+    std::string getCasacaSprite();
 
 private:
     SDL_Rect mCollider;
     int casaca;
+    std::string casacaSprite;
     Estado* estado;
     Activo activo;
     Inactivo inactivo;

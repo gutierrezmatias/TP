@@ -43,3 +43,7 @@ bool Inactivo::estaActivo()
 {
     return false;
 }
+
+void Inactivo::acelerar() {
+    return;
+}

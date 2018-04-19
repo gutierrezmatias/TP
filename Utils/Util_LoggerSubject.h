@@ -15,5 +15,6 @@ public:
     void NotifyMessage(std::string message, std::string mvc);
     void NotifyWarning(std::string message, std::string mvc);
     void NotifyError(std::string message, std::string mvc);
+    void NotifyLevel(int newLevel);
 };
 

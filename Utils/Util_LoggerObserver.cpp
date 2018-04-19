@@ -62,3 +62,8 @@ void Util_LoggerObserver::writeErrorLine(std::string line, std::string mvc)
         writeSingleLine(line, "ERROR", mvc);
     }
 }
+
+void Util_LoggerObserver::updateLevel(int newLevel)
+{
+    this->level = newLevel;
+}

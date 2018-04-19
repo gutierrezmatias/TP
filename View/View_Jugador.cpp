@@ -1,53 +1,22 @@
 #include "View_Jugador.h"
 
+#include <sstream>
+
 View_Jugador::View_Jugador()
 {
 
 }
 
-View_Jugador::View_Jugador( Jugador *model,SDL_Renderer * gRenderer)
+View_Jugador::View_Jugador(Jugador* model)
 {
     this->model = model;
-    if( !texturaJugador.loadFromFile( "Images/spritejugador.png",gRenderer) )
-    {
-        printf( "Failed to load dot texture!\n" );
-        // success = false;
-    }
-    else
-    {
-        int offset = 0;
-        if (!model->casacaPrincipal())
-        {
-            offset = 256;
-        }
-        //Set sprite clips
-        gSpriteClips[ 0 ].x =   offset+0; //si sumo 256 en X tengo la otra camiseta
-        gSpriteClips[ 0 ].y =   128;
-        gSpriteClips[ 0 ].w =  62;
-        gSpriteClips[ 0 ].h = 62;
-
-        gSpriteClips[ 1 ].x =  offset+64;
-        gSpriteClips[ 1 ].y =  128;
-        gSpriteClips[ 1 ].w =  62;
-        gSpriteClips[ 1 ].h = 62;
-
-        gSpriteClips[ 2 ].x = offset+128;
-        gSpriteClips[ 2 ].y =   128;
-        gSpriteClips[ 2 ].w =  62;
-        gSpriteClips[ 2 ].h = 62;
-
-        gSpriteClips[ 3 ].x = offset+192;
-        gSpriteClips[ 3 ].y =   128;
-        gSpriteClips[ 3 ].w =  62;
-        gSpriteClips[ 3 ].h = 62;
-
-    }
 }
 
 void View_Jugador::initialize(Jugador *model,SDL_Renderer * gRenderer)
 {
+
     this->model = model;
-    if( !texturaJugador.loadFromFile( "Images/spritejugador.png",gRenderer) )
+    if( !texturaJugador.loadFromFile("Images/spritejugador.png",gRenderer) )
     {
         printf( "Failed to load dot texture!\n" );
         // success = false;

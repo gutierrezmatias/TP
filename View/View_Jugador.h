@@ -8,7 +8,7 @@ class View_Jugador
 {
 public:
 
-    View_Jugador( Jugador *model,SDL_Renderer * gRenderer);
+    View_Jugador( Jugador *model);
     View_Jugador();
 
     void initialize(Jugador *model,SDL_Renderer * gRenderer);

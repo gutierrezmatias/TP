@@ -1,6 +1,8 @@
 #ifndef ESTADO_H
 #define ESTADO_H
 
+#define VELOCIDAD_NORMAL 3
+#define VELOCIDAD_ACELERADA 6
 
 class Estado
 {
@@ -24,10 +26,15 @@ public:
     void disminuirVelocidadY();
     void aumentarVelocidadX();
     void aumentarVelocidadY();
+    void detenerVelocidad();
 
     virtual void move() = 0;
 
     virtual bool estaActivo() = 0;
+
+    virtual void acelerar() = 0;
+
+    void desacelerar();
     //virtual void stop() = 0;
 
 protected:
@@ -36,6 +43,7 @@ protected:
     int posInitX, posInitY;
     //The velocity of the dot
     int mVelX, mVelY;
+    int aceleracion;
 
 private:
 };

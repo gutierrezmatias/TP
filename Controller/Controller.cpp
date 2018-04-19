@@ -5,11 +5,14 @@
 #include "DisminuirVelocidadX.h"
 #include "AumentarVelocidadX.h"
 #include "CambiarJugador.h"
+#include "StopJugador.h"
+#include "Acelerar.h"
+#include "Desacelerar.h"
 
-#define CANTCOMMANDS 5
+#define CANTCOMMANDS 8
 
 
-enum IDCommand {DECVELX, DECVELY, INCVELX, INCVELY, CAMBJUG};
+enum IDCommand {DECVELX, DECVELY, INCVELX, INCVELY, CAMBJUG, STOPJUG, ACCJUG, DESJUG};
 
 Controller::Controller(Model* model)
 {
@@ -20,6 +23,10 @@ Controller::Controller(Model* model)
     this->commands[INCVELX] = new AumentarVelocidadX(model);
     this->commands[INCVELY] = new AumentarVelocidadY(model);
     this->commands[CAMBJUG] = new CambiarJugador(model);
+    this->commands[STOPJUG] = new StopJugador(model);
+    this->commands[ACCJUG] = new Acelerar(model);
+    this->commands[DESJUG] = new Desacelerar(model);
+
     this->quit = false;
 }
 
@@ -75,7 +82,8 @@ Command* Controller::handleEvent(SDL_Event& e)
         case SDLK_SPACE:
             command = this->commands[CAMBJUG];
             break;
-
+        case SDLK_f:
+            command = this->commands[ACCJUG];
         }
     }
     //If a key was released
@@ -86,18 +94,19 @@ Command* Controller::handleEvent(SDL_Event& e)
         switch( e.key.keysym.sym )
         {
         case SDLK_UP:
-            command = this->commands[INCVELY];
+            command = this->commands[STOPJUG];
             break;
         case SDLK_DOWN:
-            command = this->commands[DECVELY];
+            command = this->commands[STOPJUG];
             break;
         case SDLK_LEFT:
-            command = this->commands[INCVELX];
+            command = this->commands[STOPJUG];
             break;
         case SDLK_RIGHT:
-            command = this->commands[DECVELX];
+            command = this->commands[STOPJUG];
             break;
-
+        case SDLK_f:
+            command = this->commands[DESJUG];
         }
     }
     NotifyMessage("Finaliza: handleEvent", "CONTROLLER");

@@ -23,13 +23,15 @@ public:
     void update();
     void setCamara(SDL_Rect * camara);
     void setFormacion(Formacion* formacion);
-    void setCasaca(int i);
+    void setCasaca(std::string casacaName);
+    std::string  getCasaca();
 
 protected:
 
 private:
     Pelota pelota;
     Jugador* jugadores;
+    std::string casacaSprite; // TEMPORAL.
     SDL_Rect * camara;
     int nroJugadorActivo;
     std::list<Command*> commandsToApply;

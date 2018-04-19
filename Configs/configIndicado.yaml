@@ -1,6 +1,6 @@
 equipo:
- formacion: '3-2-'
- casaca: 'sup'
+ formacion: '3-3'
+ casaca: 'principal'
 debug:
- level: 'inf'
+ level: 'debug'
 

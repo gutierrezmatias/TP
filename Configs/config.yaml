@@ -1,5 +1,5 @@
 equipo:
- formacion: '3-3'
- casaca: 'principal'
+ formacion: '3-2-1'
+ casaca: 'suplente'
 debug:
- level: 'debug'
+ level: 'info'
