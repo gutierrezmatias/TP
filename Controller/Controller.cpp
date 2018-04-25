@@ -53,8 +53,8 @@ bool Controller::quitPressed()
 
 void Controller::processInput()
 {
-    try
-    {
+   // try
+    //{
         NotifyMessage("Inicia: processInput", "Controller.cpp");
         while( SDL_PollEvent( &(this->e) ) != 0 )
         {
@@ -65,7 +65,7 @@ void Controller::processInput()
             this->model->addCommand(this->handleEvent(this->e));
         }
         NotifyMessage("Inicia: processInput", "Controller.cpp");
-    }
+    /*}
     catch(const std::runtime_error& re)
     {
         NotifyError("Error en Runtime: ", "Controller.cpp");
@@ -79,14 +79,14 @@ void Controller::processInput()
     catch(...)
     {
         NotifyError("Error desconocido que no se ha podido especificar.", "Controller.cpp");
-    }
+    }*/
 }
 
 Command* Controller::handleEvent(SDL_Event& e)
 {
     Command* command = nullptr;
-    try
-    {
+ //   try
+  //  {
         NotifyMessage("Inicia: handleEvent", "Controller.cpp");
 
         if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
@@ -143,7 +143,7 @@ Command* Controller::handleEvent(SDL_Event& e)
             }
         }
         NotifyMessage("Finaliza: handleEvent", "Controller.cpp");
-    }
+   /* }
     catch(const std::runtime_error& re)
     {
         NotifyError("Error en Runtime: ", "Controller.cpp");
@@ -157,6 +157,6 @@ Command* Controller::handleEvent(SDL_Event& e)
     catch(...)
     {
         NotifyError("Error desconocido que no se ha podido especificar.", "Controller.cpp");
-    }
+    }*/
     return command;
 }
