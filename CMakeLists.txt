@@ -72,8 +72,6 @@ View/View_Pelota.cpp
 
 View/View_Seleccionado.cpp
 
-Utils/IObserver.cpp
-
 Utils/Util_Common.cpp
 
 Utils/Util_Configuracion.cpp
