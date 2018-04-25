@@ -58,8 +58,8 @@ void Model::addCommand(Command* command)
 
 void Model::cambiarJugadorActivo()
 {
-    try
-    {
+ //   try
+  //  {
         NotifyMessage("Iniciamos: cambiarJugadorActivo", "Model.cpp");
 
         while (!((this->jugadores[(this->nroJugadorActivo + 1) % CANTJUGADORES]).collide(this->camara )))
@@ -76,7 +76,7 @@ void Model::cambiarJugadorActivo()
         NotifyMessage("Active otro jugador", "Model.cpp");
 
         NotifyMessage("Terminamos: cambiarJugadorActivo", "Model.cpp");
-    }
+    /*}
     catch(const std::runtime_error& re)
     {
         NotifyError("Error en Runtime: ", "Model.cpp");
@@ -90,13 +90,13 @@ void Model::cambiarJugadorActivo()
     catch(...)
     {
         NotifyError("Error desconocido que no se ha podido especificar.", "Model.cpp");
-    }
+    }*/
 }
 
 void Model::update()
 {
-    try
-    {
+ //   try
+   // {
         NotifyMessage("Iniciamos: update", "Model.cpp");
         Command* command = nullptr;
         while(!this->commandsToApply.empty())
@@ -111,7 +111,7 @@ void Model::update()
         }
         this->pelota.move();
         NotifyMessage("Terminamos: update", "Model.cpp");
-    }
+   /* }
     catch(const std::runtime_error& re)
     {
         NotifyError("Error en Runtime: ", "Model.cpp");
@@ -125,7 +125,7 @@ void Model::update()
     catch(...)
     {
         NotifyError("Error desconocido que no se ha podido especificar.", "Model.cpp");
-    }
+    }*/
 }
 
 void Model::setCamara(SDL_Rect * camara)
@@ -145,8 +145,8 @@ void Model::setFormacion(Formacion* formacion)
 
 void Model::setCasaca(std::string casacaName)
 {
-    try
-    {
+ //   try
+   // {
         NotifyMessage("Iniciamos: setCasaca", "Model.cpp");
         char c1[100];
         for(unsigned i = 0; i<casacaName.size(); i++)
@@ -164,7 +164,7 @@ void Model::setCasaca(std::string casacaName)
             }
         }
         NotifyMessage("Terminamos: setCasaca", "Model.cpp");
-    }
+    /*}
     catch(const std::runtime_error& re)
     {
         NotifyError("Error en Runtime: ", "CONTROLLER");
@@ -178,5 +178,5 @@ void Model::setCasaca(std::string casacaName)
     catch(...)
     {
         NotifyError("Error desconocido que no se ha podido especificar.", "CONTROLLER");
-    }
+    }*/
 }
