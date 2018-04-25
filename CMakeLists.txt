@@ -9,7 +9,7 @@ include_directories(Utils)
 include_directories(Images)   
 
 file(GLOB SOURCES "Model/*.cpp" "View/*.cpp" "Controller/*.cpp" "Utils/*.cpp") 
-add_library(taller SHARED ${SOURCES})
+##add_library(taller SHARED ${SOURCES})
 add_executable(taller ${SOURCES})
 
 set_property(TARGET taller PROPERTY CXX_STANDARD 11)
