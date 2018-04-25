@@ -6,7 +6,7 @@
 Model::Model()
 {
     this->jugadores = new Jugador[CANTJUGADORES]();
-    this->nroJugadorActivo = 0;
+    this->nroJugadorActivo = 4;
     this->getJugadorActivo()->activar();
 }
 
@@ -32,95 +32,151 @@ Jugador* Model::getJugadorActivo()
 
 void Model::addCommand(Command* command)
 {
-    NotifyMessage("INGRESAMOS EN EL METODO: addCommand", "MODEL");
-    //hay que tirar una excepcion
-    if(command == nullptr)
-        return;
-    this->commandsToApply.push_back(command);
-    NotifyMessage("SALIMOS DEL METODO: addCommand", "MODEL");
+    try
+    {
+        NotifyMessage("Iniciamos: addCommand", "Model.cpp");
+        //hay que tirar una excepcion
+        if(command == nullptr) return;
+        this->commandsToApply.push_back(command);
+        NotifyMessage("Terminamos: addCommand", "Model.cpp");
+    }
+    catch(const std::runtime_error& re)
+    {
+        NotifyError("Error en Runtime: ", "Model.cpp");
+        NotifyError(re.what(), "Model.cpp");
+    }
+    catch(const std::exception& ex)
+    {
+        NotifyError("Ha ocurrido un error: ", "Model.cpp");
+        NotifyError(ex.what(), "Model.cpp");
+    }
+    catch(...)
+    {
+        NotifyError("Error desconocido que no se ha podido especificar.", "Model.cpp");
+    }
 }
 
 void Model::cambiarJugadorActivo()
 {
-    NotifyMessage("INGRESAMOS EN EL METODO: cambiarJugadorActivo", "MODEL");
-    while (!((this->jugadores[(this->nroJugadorActivo + 1) % CANTJUGADORES]).collide(this->camara )))
+    try
     {
-        printf("\n\n colision 2\n\n");
-        NotifyMessage("colision 2", "MODEL");
+        NotifyMessage("Iniciamos: cambiarJugadorActivo", "Model.cpp");
+
+        while (!((this->jugadores[(this->nroJugadorActivo + 1) % CANTJUGADORES]).collide(this->camara )))
+        {
+            NotifyMessage("Colision 2", "Model.cpp");
+            (this->jugadores[(this->nroJugadorActivo)]).desactivar();
+            this->nroJugadorActivo = (this->nroJugadorActivo + 1) % CANTJUGADORES;
+        }
         (this->jugadores[(this->nroJugadorActivo)]).desactivar();
+
+        NotifyMessage("Desactive el jugador actual", "Model.cpp");
         this->nroJugadorActivo = (this->nroJugadorActivo + 1) % CANTJUGADORES;
+        (this->jugadores[(this->nroJugadorActivo)]).activar();
+        NotifyMessage("Active otro jugador", "Model.cpp");
 
+        NotifyMessage("Terminamos: cambiarJugadorActivo", "Model.cpp");
     }
-    (this->jugadores[(this->nroJugadorActivo)]).desactivar();
-
-    NotifyMessage("DESACTIVE ACTUAL JUGADOR", "MODEL");
-    this->nroJugadorActivo = (this->nroJugadorActivo + 1) % CANTJUGADORES;
-    (this->jugadores[(this->nroJugadorActivo)]).activar();
-    NotifyMessage("ACTIVE OTRO JUGADOR", "MODEL");
-
-    NotifyMessage("SALIMOS DEL METODO: cambiarJugadorActivo", "MODEL");
+    catch(const std::runtime_error& re)
+    {
+        NotifyError("Error en Runtime: ", "Model.cpp");
+        NotifyError(re.what(), "Model.cpp");
+    }
+    catch(const std::exception& ex)
+    {
+        NotifyError("Ha ocurrido un error: ", "Model.cpp");
+        NotifyError(ex.what(), "Model.cpp");
+    }
+    catch(...)
+    {
+        NotifyError("Error desconocido que no se ha podido especificar.", "Model.cpp");
+    }
 }
-//El detener jugadores ya esta implicito en el estado.
-//Y si no, deberia estarlo.s
-//void Model::detenerJugadores()
-//{
-//    for(int i = 0; i < CANTJUGADORES; ++i)
-//    {
-//        this->jugadores[i].stop();
-//    }
-//}
 
 void Model::update()
 {
-    NotifyMessage("INGRESAMOS EN EL METODO: update", "MODEL");
-    Command* command = nullptr;
-    while(!this->commandsToApply.empty())
+    try
     {
-        command = this->commandsToApply.front();
-        command->execute();
-        this->commandsToApply.pop_front();
+        NotifyMessage("Iniciamos: update", "Model.cpp");
+        Command* command = nullptr;
+        while(!this->commandsToApply.empty())
+        {
+            command = this->commandsToApply.front();
+            command->execute();
+            this->commandsToApply.pop_front();
+        }
+        for(int i = 0; i < CANTJUGADORES; ++i)
+        {
+            this->jugadores[i].move();
+        }
+        this->pelota.move();
+        NotifyMessage("Terminamos: update", "Model.cpp");
     }
-    for(int i = 0; i < CANTJUGADORES; ++i)
+    catch(const std::runtime_error& re)
     {
-        this->jugadores[i].move();
+        NotifyError("Error en Runtime: ", "Model.cpp");
+        NotifyError(re.what(), "Model.cpp");
     }
-    NotifyMessage("SALIMOS DEL EL METODO: update", "MODEL");
+    catch(const std::exception& ex)
+    {
+        NotifyError("Ha ocurrido un error: ", "Model.cpp");
+        NotifyError(ex.what(), "Model.cpp");
+    }
+    catch(...)
+    {
+        NotifyError("Error desconocido que no se ha podido especificar.", "Model.cpp");
+    }
 }
 
 void Model::setCamara(SDL_Rect * camara)
 {
-    NotifyMessage("INGRESAMOS AL METODO: setCamara", "MODEL");
+    NotifyMessage("Iniciamos: setCamara", "Model.cpp");
     this->camara = camara;
-    NotifyMessage("SALIMOS DEL METODO: setCamara", "MODEL");
+    NotifyMessage("Terminamos: setCamara", "Model.cpp");
 }
 
 void Model::setFormacion(Formacion* formacion)
 {
-    NotifyMessage("INGRESAMOS AL METODO: setFormacion", "MODEL");
+    NotifyMessage("Iniciamos: setFormacion", "Model.cpp");
     formacion->setPosicionInicial(this->jugadores);
-    NotifyMessage("SALIMOS DEL METODO: setFormacion", "MODEL");
+    NotifyMessage("Terminamos: setFormacion", "Model.cpp");
+
 }
 
 void Model::setCasaca(std::string casacaName)
 {
-    char c1[100];
-    for(int i = 0; i<casacaName.size(); i++)
+    try
     {
-        casacaName.at(i) = toupper(casacaName.at(i));
-        c1[i] = casacaName.at(i);
-    }
-    char c3[] = "suplente";
-
-    if((strncasecmp(c1,c3,2))==0)
-    {
-        for(int i = 0; i < CANTJUGADORES; ++i)
+        NotifyMessage("Iniciamos: setCasaca", "Model.cpp");
+        char c1[100];
+        for(unsigned i = 0; i<casacaName.size(); i++)
         {
-            this->jugadores[i].setCasacaAlternativa();
+            casacaName.at(i) = toupper(casacaName.at(i));
+            c1[i] = casacaName.at(i);
         }
-    }
-}
+        char c3[] = "suplente";
 
-std::string Model::getCasaca()
-{
-    return this->casacaSprite;
+        if((strncasecmp(c1,c3,2))==0)
+        {
+            for(int i = 0; i < CANTJUGADORES; ++i)
+            {
+                this->jugadores[i].setCasacaAlternativa();
+            }
+        }
+        NotifyMessage("Terminamos: setCasaca", "Model.cpp");
+    }
+    catch(const std::runtime_error& re)
+    {
+        NotifyError("Error en Runtime: ", "CONTROLLER");
+        NotifyError(re.what(), "CONTROLLER");
+    }
+    catch(const std::exception& ex)
+    {
+        NotifyError("Ha ocurrido un error: ", "CONTROLLER");
+        NotifyError(ex.what(), "CONTROLLER");
+    }
+    catch(...)
+    {
+        NotifyError("Error desconocido que no se ha podido especificar.", "CONTROLLER");
+    }
 }

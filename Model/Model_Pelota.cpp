@@ -8,14 +8,20 @@ Pelota::Pelota()
     mPosY = (ALTO_NIVEL/2)-(ANCHO_PELOTA/2);
 
     //Initialize the velocity
-    mVelX = 50;
-    mVelY = 50;
+    mVelX = 0;
+    mVelY = 0;
+
+    colli_pelo.x=this->getPosX();
+    colli_pelo.y=this->getPosY();
+    colli_pelo.h=this->ANCHO_PELOTA;
+    colli_pelo.w=this->ANCHO_PELOTA;
 }
 
 void Pelota::move()
 {
     //Move the dot left or right
     mPosX += mVelX;
+
 
     //If the dot went too far to the left or right
     if( ( mPosX < 0 ) || ( mPosX + ANCHO_PELOTA > ANCHO_NIVEL) )
@@ -36,8 +42,30 @@ void Pelota::move()
         mPosY -= mVelY;
         mVelY=(-1)*mVelY;
     }
+    if (mVelX>0){
+        mVelX--;
+    }
+    if (mVelX<0){
+        mVelX++;
+    }
+     if (mVelY>0){
+        mVelY--;
+    }
+    if (mVelY<0){
+        mVelY++;
+    }
 
+    this->colli_pelo.x = this->getPosX();
+    this->colli_pelo.y = this->getPosY();
 }
+
+void Pelota::setVelocidadX(int velocidad){
+     mVelX = velocidad ;
+  }
+    void Pelota::setVelocidadY(int velocidad){
+        mVelY = velocidad;
+    }
+
 
 int Pelota::getPosX()
 {
@@ -91,4 +119,8 @@ int Pelota::getVelY()
     return mVelY;
 }
 
+SDL_Rect * Pelota::getCollider()
+{
+    return &colli_pelo;
+}
 

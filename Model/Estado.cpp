@@ -12,7 +12,7 @@ Estado::Estado()
     //Initialize the velocity
     this->mVelX = 0;
     this->mVelY = 0;
-    this->aceleracion = VELOCIDAD_NORMAL;
+    this->aceleracion = 1;
 }
 
 Estado::~Estado()
@@ -67,19 +67,19 @@ void Estado::copiarEstado(Estado* estado)
 }
 void Estado::disminuirVelocidadX()
 {
-    this->mVelX -= this->aceleracion;
+    this->mVelX -=VELOCIDAD_JUGADOR ;
 }
 void Estado::disminuirVelocidadY()
 {
-    this->mVelY -= this->aceleracion;
+    this->mVelY -=VELOCIDAD_JUGADOR;
 }
 void Estado::aumentarVelocidadX()
 {
-    this->mVelX += this->aceleracion;
+    this->mVelX +=VELOCIDAD_JUGADOR;
 }
 void Estado::aumentarVelocidadY()
 {
-    this->mVelY += this->aceleracion;
+    this->mVelY+=VELOCIDAD_JUGADOR;
 }
 
 void Estado::detenerVelocidad() {
@@ -88,5 +88,10 @@ void Estado::detenerVelocidad() {
 }
 
 void Estado::desacelerar() {
-    this->aceleracion = VELOCIDAD_NORMAL;
+    this->aceleracion = 1;
+}
+
+int Estado::getAceleracion()
+{
+    return this->aceleracion;
 }

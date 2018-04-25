@@ -2,7 +2,7 @@
 #define ESTADO_H
 
 #define VELOCIDAD_NORMAL 3
-#define VELOCIDAD_ACELERADA 6
+#define VELOCIDAD_ACELERACION 2
 
 class Estado
 {
@@ -33,7 +33,7 @@ public:
     virtual bool estaActivo() = 0;
 
     virtual void acelerar() = 0;
-
+    int getAceleracion();
     void desacelerar();
     //virtual void stop() = 0;
 
