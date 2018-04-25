@@ -12,6 +12,7 @@ class Util_LoggerObserver : IObserver
         int level;
     public:
         Util_LoggerObserver(int myLevel);
+        virtual ~Util_LoggerObserver();
         int getLoggerLevel();
         std::string getLogFile();
         void writeSingleLine(std::string line, std::string type, std::string mvc);

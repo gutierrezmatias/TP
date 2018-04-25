@@ -20,6 +20,11 @@ Util_LoggerObserver::Util_LoggerObserver(int myLevel)
     this->level = myLevel;
 }
 
+Util_LoggerObserver::~Util_LoggerObserver()
+{
+    //dtor
+}
+
 int Util_LoggerObserver::getLoggerLevel()
 {
     return this->level;
@@ -33,7 +38,7 @@ std::string Util_LoggerObserver::getLogFile()
 
 void Util_LoggerObserver::writeSingleLine(string line, string type, string mvc)
 {
-    printf((line + "\n").c_str());
+    printf("%s", (line + "\n").c_str());
     ofstream log_file(getLogFile(), ios_base::out | ios_base::app );
     log_file << utils.currentDateTime() + " || " + type + " || " + mvc + " || " << line << endl;
     log_file.close();

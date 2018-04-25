@@ -5,231 +5,384 @@
 #include <string>
 #include <boost/algorithm/string.hpp>
 
-
 using namespace std;
 
 #include "Util_Parser.h"
-#include "Util_Logger.h"
+//#include "Util_Logger.h"
 
 std::vector<Equipo> equipos;
 std::vector<Debug> debugs;
 
-
-inline bool Util_Parser::fileExists(const std::string& name)
+bool Util_Parser::fileExists(const std::string& name)
 {
-NotifyMessage("FileExists: comprobando si existe archivo...", "UTILS");
-    ifstream f(name.c_str());
-    if (f.good())
+    try
     {
-        f.close();
-        return true;
+        NotifyMessage("FileExists: comprobando si existe archivo...", "Util_Parser.cpp");
+        ifstream f(name.c_str());
+
+        if (f.good())
+        {
+            f.seekg(0, ios::end); // va al final de archivo
+            if(f.tellg()==0)
+            {
+                NotifyError("fileExists: archivo "+ name +" vacio", "Util_Parser.cpp");
+                f.close();
+                return false;
+            }
+            else
+            {
+                NotifyWarning("fileExists: archivo "+ name +" obtenido correctamente", "Util_Parser.cpp");
+                f.close();
+                return true;
+            }
+        }
+        else
+        {
+            NotifyError("fileExists: archivo "+ name +" inválido", "Util_Parser.cpp");
+            f.close();
+            return false;
+        }
     }
-    else
+    catch(const std::runtime_error& re)
     {
-        f.close();
+        NotifyError("Error en Runtime: ", "Util_Parser.cpp");
+        NotifyError(re.what(), "Util_Parser.cpp");
+        return false;
+    }
+    catch(const std::exception& ex)
+    {
+        NotifyError("Ha ocurrido un error: ", "Util_Parser.cpp");
+        NotifyError(ex.what(), "Util_Parser.cpp");
+        return false;
+    }
+    catch(...)
+    {
+        NotifyError("Error desconocido que no se ha podido especificar.", "Util_Parser.cpp");
         return false;
     }
 }
 
 inline bool Util_Parser::levelValido(std::string &name)
 {
-
-if (name.size() > 99 )
-{
-NotifyWarning("levelValido: valor de level demasiado largo", "UTILS");
-return false;
-}
-
-    char c1[100];
-    for(int i = 0; i<name.size(); i++)
+    try
     {
-        name.at(i) = toupper(name.at(i));
-        c1[i] = name.at(i);
+        if (name.size() > 99 )
+        {
+            NotifyWarning("levelValido: valor de level demasiado largo", "Util_Parser.cpp");
+            return false;
+        }
+
+        char c1[100];
+        for(unsigned i = 0; i<name.size(); i++)
+        {
+            name.at(i) = toupper(name.at(i));
+            c1[i] = name.at(i);
+        }
+
+        char c2[] = "DEBUG";
+        char c3[] = "INFO";
+        char c4[] = "ERROR";
+
+        NotifyMessage("levelValido: obteniendo level ", "Util_Parser.cpp");
+        if((strncasecmp(c1,c2,2))==0)
+        {
+            name = "debug";
+            NotifyMessage("levelValido: level seteado:" + name, "Util_Parser.cpp");;
+            return true;
+        }
+
+        if((strncasecmp(c1,c3,2))==0)
+        {
+            name = "info";
+            NotifyMessage("levelValido: level seteado:" + name, "Util_Parser.cpp");
+            return true;
+        }
+
+        if((strncasecmp(c1,c4,2))==0)
+        {
+            name = "error";
+            NotifyMessage("levelValido: level seteado:" + name, "Util_Parser.cpp");
+            return true;
+        }
+
+        name = "";
+        NotifyWarning("levelValido: valor de level invalido", "Util_Parser.cpp");
+        return false;
     }
-
-    char c2[] = "DEBUG";
-    char c3[] = "INFO";
-    char c4[] = "ERROR";
-
-NotifyMessage("levelValido: obteniendo level ", "UTILS");
-    if((strncasecmp(c1,c2,2))==0)
+    catch(const std::runtime_error& re)
     {
-        name = "debug";
-        NotifyMessage("levelValido: level seteado:" + name, "UTILS");;
-        return true;
+        NotifyError("Error en Runtime: ", "Util_Parser.cpp");
+        NotifyError(re.what(), "Util_Parser.cpp");
+        return false;
     }
-
-    if((strncasecmp(c1,c3,2))==0)
+    catch(const std::exception& ex)
     {
-        name = "info";
-        NotifyMessage("levelValido: level seteado:" + name, "UTILS");
-        return true;
+        NotifyError("Ha ocurrido un error: ", "Util_Parser.cpp");
+        NotifyError(ex.what(), "Util_Parser.cpp");
+        return false;
     }
-
-    if((strncasecmp(c1,c4,2))==0)
+    catch(...)
     {
-        name = "error";
-        NotifyMessage("levelValido: level seteado:" + name, "UTILS");
-        return true;
+        NotifyError("Error desconocido que no se ha podido especificar.", "Util_Parser.cpp");
+        return false;
     }
-
-    name = "";
-    NotifyWarning("levelValido: valor de level invalido", "UTILS");
-    return false;
-
 }
 //pasar por referencia
 inline bool Util_Parser::casacaValido(std::string &name)
 {
-if (name.size() > 99 )
-{
-NotifyWarning("casacaValido: valor de casaca demasiado largo", "UTILS");
-return false;
-}
-    char c1[100];
-    for(int i = 0; i<name.size(); i++)
+    try
     {
-        name.at(i) = toupper(name.at(i));
-        c1[i] = name.at(i);
-    }
+        if (name.size() > 99 )
+        {
+            NotifyWarning("casacaValido: valor de casaca demasiado largo", "Util_Parser.cpp");
+            return false;
+        }
+        char c1[100];
+        for(unsigned i = 0; i<name.size(); i++)
+        {
+            name.at(i) = toupper(name.at(i));
+            c1[i] = name.at(i);
+        }
 
-    char c2[] = "PRINCIPAL";
-    char c3[] = "SUPLENTE";
-    char c4[] = "AUXILIAR";
+        char c2[] = "PRINCIPAL";
+        char c3[] = "SUPLENTE";
+        char c4[] = "AUXILIAR";
 
-    NotifyMessage("casacaValido: obteniendo casaca ", "UTILS");
-    if((strncasecmp(c1,c2,2))==0)
-    {
-        name = "principal";
-        NotifyMessage("casacaValido: casaca seteado:" + name, "UTILS");
-        return true;
-    }
+        NotifyMessage("casacaValido: obteniendo casaca ", "Util_Parser.cpp");
+        if((strncasecmp(c1,c2,2))==0)
+        {
+            name = "principal";
+            NotifyMessage("casacaValido: casaca seteado:" + name, "Util_Parser.cpp");
+            return true;
+        }
 
-    if((strncasecmp(c1,c3,2))==0)
-    {
-        name = "suplente";
-         NotifyMessage("casacaValido: casaca seteado:" + name, "UTILS");
-        return true;
+        if((strncasecmp(c1,c3,2))==0)
+        {
+            name = "suplente";
+            NotifyMessage("casacaValido: casaca seteado:" + name, "Util_Parser.cpp");
+            return true;
+        }
+
+        if((strncasecmp(c1,c4,2))==0)
+        {
+            name = "auxiliar";
+            NotifyWarning("casaca Auxiliar: casaca seteado:" + name, "Util_Parser.cpp");
+            return true;
+        }
+
+        name = "";
+        NotifyWarning("casacaValido: valor de casaca invalido", "Util_Parser.cpp");
+        return false;
     }
-    if((strncasecmp(c1,c4,2))==0)
+    catch(const std::runtime_error& re)
     {
-        name = "auxiliar";
-        NotifyWarning("casaca Auxiliar: casaca seteado:" + name, "UTILS");
-        return true;
+        NotifyError("Error en Runtime: ", "Util_Parser.cpp");
+        NotifyError(re.what(), "Util_Parser.cpp");
+        return false;
     }
-    name = "";
-    NotifyWarning("casacaValido: valor de casaca invalido", "UTILS");
-    return false;
+    catch(const std::exception& ex)
+    {
+        NotifyError("Ha ocurrido un error: ", "Util_Parser.cpp");
+        NotifyError(ex.what(), "Util_Parser.cpp");
+        return false;
+    }
+    catch(...)
+    {
+        NotifyError("Error desconocido que no se ha podido especificar.", "Util_Parser.cpp");
+        return false;
+    }
 }
 //pasar por referencia
 inline bool Util_Parser::formacionValido(std::string &name)
 {
-if (name.size() > 99 )
-{
-NotifyWarning("formacionValido: valor de formacion demasiado largo", "UTILS");
-return false;
-}
-    char c1[100];
-    for(int i = 0; i<name.size(); i++)
+    try
     {
-        c1[i] = name.at(i);
-    }
-    char c2[] = "3-3";
-    char c3[] = "3-1-2";
-    char c4[] = "3-2-1";
-    NotifyMessage("formacionValido: obteniendo formacion ", "UTILS");
-    if((strncasecmp(c1,c2,3))==0)
-    {
-        name = "3-3";
-        NotifyMessage("formacionValido: formacion seteado:" + name, "UTILS");
-        return true;
-    }
+        if (name.size() > 99 )
+        {
+            NotifyWarning("formacionValido: valor de formacion demasiado largo", "Util_Parser.cpp");
+            return false;
+        }
+        char c1[100];
+        for(unsigned i = 0; i<name.size(); i++)
+        {
+            c1[i] = name.at(i);
+        }
+        char c2[] = "3-3";
+        char c3[] = "3-1-2";
+        char c4[] = "3-2-1";
 
-    if((strncasecmp(c1,c3,3))==0)
-    {
-        name = "3-1";
-        NotifyMessage("formacionValido: formacion seteado:" + name, "UTILS");
-        return true;
-    }
+        NotifyMessage("formacionValido: obteniendo formacion ", "Util_Parser.cpp");
+        if((strncasecmp(c1,c2,3))==0)
+        {
+            name = "3-3";
+            NotifyMessage("formacionValido: formacion seteado:" + name, "Util_Parser.cpp");
+            return true;
+        }
 
-    if((strncasecmp(c1,c4,3))==0)
-    {
-        name = "3-2-1";
-         NotifyMessage("casacaValido: formacion seteado:" + name, "UTILS");
-        return true;
+        if((strncasecmp(c1,c3,3))==0)
+        {
+            name = "3-1";
+            NotifyMessage("formacionValido: formacion seteado:" + name, "Util_Parser.cpp");
+            return true;
+        }
+
+        if((strncasecmp(c1,c4,3))==0)
+        {
+            name = "3-2-1";
+            NotifyMessage("casacaValido: formacion seteado:" + name, "Util_Parser.cpp");
+            return true;
+        }
+        name = "";
+        NotifyWarning("formacionValido: valor de formacion invalido", "Util_Parser.cpp");
+        return false;
     }
-    name = "";
-     NotifyWarning("formacionValido: valor de formacion invalido", "UTILS");
-    return false;
+    catch(const std::runtime_error& re)
+    {
+        NotifyError("Error en Runtime: ", "Util_Parser.cpp");
+        NotifyError(re.what(), "Util_Parser.cpp");
+        return false;
+    }
+    catch(const std::exception& ex)
+    {
+        NotifyError("Ha ocurrido un error: ", "Util_Parser.cpp");
+        NotifyError(ex.what(), "Util_Parser.cpp");
+        return false;
+    }
+    catch(...)
+    {
+        NotifyError("Error desconocido que no se ha podido especificar.", "Util_Parser.cpp");
+        return false;
+    }
 }
 
 Equipo Util_Parser::read_yaml_Equipo(std::vector<YAML::Node> baseNode)
 {
-    equipos.clear();
-    for (auto &document : baseNode)
+    try
     {
-        equipos.emplace_back(document["equipo"]);
+        equipos.clear();
+        for (auto &document : baseNode)
+        {
+            equipos.emplace_back(document["equipo"]);
+        }
+    }
+    catch(const std::runtime_error& re)
+    {
+        NotifyError("Error en Runtime: ", "Util_Parser.cpp");
+        NotifyError(re.what(), "Util_Parser.cpp");
+    }
+    catch(const std::exception& ex)
+    {
+        NotifyError("Ha ocurrido un error: ", "Util_Parser.cpp");
+        NotifyError(ex.what(), "Util_Parser.cpp");
+    }
+    catch(...)
+    {
+        NotifyError("Error desconocido que no se ha podido especificar.", "Util_Parser.cpp");
     }
     return equipos.at(0);
 }
 
 Debug Util_Parser::read_yaml_Debug(std::vector<YAML::Node> baseNode)
 {
-    debugs.clear();
-    for (auto &document : baseNode)
+    try
     {
-        debugs.emplace_back(document["debug"]);
+        debugs.clear();
+        for (auto &document : baseNode)
+        {
+            debugs.emplace_back(document["debug"]);
+        }
+    }
+    catch(const std::runtime_error& re)
+    {
+        NotifyError("Error en Runtime: ", "Util_Parser.cpp");
+        NotifyError(re.what(), "Util_Parser.cpp");
+    }
+    catch(const std::exception& ex)
+    {
+        NotifyError("Ha ocurrido un error: ", "Util_Parser.cpp");
+        NotifyError(ex.what(), "Util_Parser.cpp");
+    }
+    catch(...)
+    {
+        NotifyError("Error desconocido que no se ha podido especificar.", "Util_Parser.cpp");
     }
     return debugs.at(0);
-
 }
-
 
 void Util_Parser::mezclar(Parametros &resultado, Parametros parametro)
 {
-   NotifyMessage("mezclar: obteniendo parametros de memoria", "UTILS");
-    if(!levelValido(resultado.level))
-    {
-        resultado.level = parametro.level;
-    }
+   try
+   {
+        NotifyMessage("mezclar: obteniendo parametros de memoria", "Util_Parser.cpp");
+        if(!levelValido(resultado.level))
+        {
+            resultado.level = parametro.level;
+        }
 
-    if(!formacionValido( resultado.formacion))
-    {
-        resultado.formacion = parametro.formacion;
-    }
+        if(!formacionValido( resultado.formacion))
+        {
+            resultado.formacion = parametro.formacion;
+        }
 
-    if(!casacaValido( resultado.casaca))
-    {
-        resultado.casaca = parametro.casaca;
+        if(!casacaValido( resultado.casaca))
+        {
+            resultado.casaca = parametro.casaca;
+        }
     }
-
+    catch(const std::runtime_error& re)
+    {
+        NotifyError("Error en Runtime: ", "Util_Parser.cpp");
+        NotifyError(re.what(), "Util_Parser.cpp");
+    }
+    catch(const std::exception& ex)
+    {
+        NotifyError("Ha ocurrido un error: ", "Util_Parser.cpp");
+        NotifyError(ex.what(), "Util_Parser.cpp");
+    }
+    catch(...)
+    {
+        NotifyError("Error desconocido que no se ha podido especificar.", "Util_Parser.cpp");
+    }
 }
 
 void Util_Parser::llenarParametrosObtenidos( std::vector<YAML::Node> baseNode, Parametros &parametrosObtenidos)
 {
-
-//obtener debug
     try
     {
         Debug debugParseado = read_yaml_Debug(baseNode);
         parametrosObtenidos.level = debugParseado.get_level();
         if(levelValido( parametrosObtenidos.level))
         {
-            NotifyMessage("llenarParametrosObtenidos: level obtenido", "UTILS");
-
+            NotifyMessage("llenarParametrosObtenidos: level obtenido", "Util_Parser.cpp");
         }
         else
         {
-            NotifyWarning("llenarParametrosObtenidos: level invalido", "UTILS");
+            NotifyWarning("llenarParametrosObtenidos: level invalido", "Util_Parser.cpp");
             parametrosObtenidos.esValido = 0;
         }
     }
     catch(YAML::Exception ex)
     {
-            NotifyError("llenarParametrosObtenidos: no se pudo obtener el nodo Debug", "UTILS");
-            parametrosObtenidos.esValido = 0;
+        NotifyError("llenarParametrosObtenidos: no se pudo obtener el nodo Debug", "Util_Parser.cpp");
+        parametrosObtenidos.esValido = 0;
     }
-
+    catch(const std::runtime_error& re)
+    {
+        NotifyError("Error en Runtime: ", "Util_Parser.cpp");
+        NotifyError(re.what(), "Util_Parser.cpp");
+        parametrosObtenidos.esValido = 0;
+    }
+    catch(const std::exception& ex)
+    {
+        NotifyError("Ha ocurrido un error: ", "Util_Parser.cpp");
+        NotifyError(ex.what(), "Util_Parser.cpp");
+        parametrosObtenidos.esValido = 0;
+    }
+    catch(...)
+    {
+        NotifyError("Error desconocido que no se ha podido especificar.", "Util_Parser.cpp");
+        parametrosObtenidos.esValido = 0;
+    }
 
     try
     {
@@ -237,33 +390,46 @@ void Util_Parser::llenarParametrosObtenidos( std::vector<YAML::Node> baseNode, P
         parametrosObtenidos.casaca = equipoParseado.get_casaca();
         if(casacaValido(parametrosObtenidos.casaca))
         {
-             NotifyMessage("llenarParametrosObtenidos: casaca obtenido", "UTILS");
+            NotifyMessage("llenarParametrosObtenidos: casaca obtenido", "Util_Parser.cpp");
         }
         else
         {
-            NotifyWarning("llenarParametrosObtenidos: casaca invalido", "UTILS");
+            NotifyWarning("llenarParametrosObtenidos: casaca invalido", "Util_Parser.cpp");
             parametrosObtenidos.esValido = 0;
         }
         parametrosObtenidos.formacion = equipoParseado.get_formacion();
         if(formacionValido(parametrosObtenidos.formacion))
         {
-            NotifyMessage("llenarParametrosObtenidos: formacion obtenido", "UTILS");
+            NotifyMessage("llenarParametrosObtenidos: formacion obtenido", "Util_Parser.cpp");
         }
         else
         {
-            NotifyWarning("llenarParametrosObtenidos: formacion invalido", "UTILS");
+            NotifyWarning("llenarParametrosObtenidos: formacion invalido", "Util_Parser.cpp");
             parametrosObtenidos.esValido = 0;
-
         }
     }
     catch(YAML::Exception ex)
     {
-    NotifyError("llenarParametrosObtenidos: no se pudo obtener el nodo Equipo", "UTILS");
+        NotifyError("llenarParametrosObtenidos: no se pudo obtener el nodo Equipo", "Util_Parser.cpp");
         parametrosObtenidos.esValido = 0;
-
     }
-
-
+    catch(const std::runtime_error& re)
+    {
+        NotifyError("Error en Runtime: ", "Util_Parser.cpp");
+        NotifyError(re.what(), "Util_Parser.cpp");
+        parametrosObtenidos.esValido = 0;
+    }
+    catch(const std::exception& ex)
+    {
+        NotifyError("Ha ocurrido un error: ", "Util_Parser.cpp");
+        NotifyError(ex.what(), "Util_Parser.cpp");
+        parametrosObtenidos.esValido = 0;
+    }
+    catch(...)
+    {
+        NotifyError("Error desconocido que no se ha podido especificar.", "Util_Parser.cpp");
+        parametrosObtenidos.esValido = 0;
+    }
 }
 
 Parametros Util_Parser::read_yaml_Parametros(std::string pathIndicado, std::string pathDefault, Parametros superParametros)
@@ -277,29 +443,24 @@ Parametros Util_Parser::read_yaml_Parametros(std::string pathIndicado, std::stri
 
         if (fileExists(pathIndicado))
         {
-            NotifyMessage("read_yaml_Parametros: cargar path indicado por parametro", "UTILS");
+            NotifyMessage("read_yaml_Parametros: cargar path indicado por parametro", "Util_Parser.cpp");
             baseNode = YAML::LoadAllFromFile(pathIndicado);
-
         }
         else
         {
             if(fileExists(pathDefault))
             {
-               NotifyMessage("read_yaml_Parametros: cargar path indicado por default", "UTILS");
+                NotifyMessage("read_yaml_Parametros: cargar path indicado por default", "Util_Parser.cpp");
                 baseNode = YAML::LoadAllFromFile(pathDefault);
             }
-
         }
         llenarParametrosObtenidos(baseNode, parametrosObtenidosIndicado);
 
-
         if (parametrosObtenidosIndicado.esValido == 0)
         {
-            NotifyWarning("read_yaml_Parametros: parametros obtenidos invalidos", "UTILS");
-            //intenta llenar con defaul
+            NotifyWarning("read_yaml_Parametros: parametros obtenidos invalidos", "Util_Parser.cpp");
             baseNode = YAML::LoadAllFromFile(pathDefault);
             llenarParametrosObtenidos(baseNode, parametrosObtenidosDefault);
-
             mezclar (parametrosObtenidosIndicado, parametrosObtenidosDefault);
             mezclar(parametrosObtenidosIndicado, superParametros);
         }
@@ -308,13 +469,30 @@ Parametros Util_Parser::read_yaml_Parametros(std::string pathIndicado, std::stri
     }
     catch(YAML::Exception ex)
     {
-   NotifyError("read_yaml_Parametros: parametros obtenidos invalidos", "UTILS");
+        NotifyError("read_yaml_Parametros: parametros obtenidos invalidos", "Util_Parser.cpp");
+        return superParametros;
+    }
+    catch(const std::runtime_error& re)
+    {
+        NotifyError("Error en Runtime: ", "Util_Parser.cpp");
+        NotifyError(re.what(), "Util_Parser.cpp");
+        return superParametros;
+    }
+    catch(const std::exception& ex)
+    {
+        NotifyError("Ha ocurrido un error: ", "Util_Parser.cpp");
+        NotifyError(ex.what(), "Util_Parser.cpp");
+        return superParametros;
+    }
+    catch(...)
+    {
+        NotifyError("Error desconocido que no se ha podido especificar.", "Util_Parser.cpp");
         return superParametros;
     }
 }
 
 Parametros Util_Parser::CrearSuperConfig()
 {
-    //loguar carga de superconfig
+    NotifyMessage("Creamos una configuración por si todos los archivos de configuración fallan.", "Util_Parser.cpp");
     return Parametros("debug","3-3","auxiliar");
 }
