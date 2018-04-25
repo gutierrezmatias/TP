@@ -33,8 +33,8 @@ View::~View()
 
 void View::ajustarCamara()
 {
-    try
-    {
+   // try
+    //{
         NotifyMessage("Inicia: ajustarCamara", "View.cpp");
         Jugador* jugadorActual = this->model->getJugadorActivo();
         //Esto hacerlo con Patron Observer.
@@ -85,7 +85,7 @@ void View::ajustarCamara()
         }
         this->jugadorAnterior = jugadorActual;
         NotifyMessage("Finaliza: ajustarCamara", "View.cpp");
-    }
+    /*}
     catch(const std::runtime_error& re)
     {
         NotifyError("Error en Runtime: ", "View.cpp");
@@ -99,13 +99,13 @@ void View::ajustarCamara()
     catch(...)
     {
         NotifyError("Error desconocido que no se ha podido especificar.", "View.cpp");
-    }
+    }*/
 }
 
 void View::render()
 {
-    try
-    {
+  //  try
+   // {
         NotifyMessage("Inicia: render", "View.cpp");
         this->ajustarCamara();
         SDL_SetRenderDrawColor( this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
@@ -116,7 +116,7 @@ void View::render()
         //Update screen
         SDL_RenderPresent( this->gRenderer );
         NotifyMessage("Finaliza: render", "View.cpp");
-    }
+   /* }
     catch(const std::runtime_error& re)
     {
         NotifyError("Error en Runtime: ", "View.cpp");
@@ -130,14 +130,14 @@ void View::render()
     catch(...)
     {
         NotifyError("Error desconocido que no se ha podido especificar.", "View.cpp");
-    }
+    }*/
 }
 
 bool View::inicializar()
 {
     bool exito = true;
-    try
-    {
+   // try
+    //{
         NotifyMessage("Inicia: inicializar", "View.cpp");
 
         if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
@@ -193,7 +193,7 @@ bool View::inicializar()
             }
         }
         NotifyMessage("Finaliza: inicializar", "View.cpp");
-    }
+  /*  }
     catch(const std::runtime_error& re)
     {
         NotifyError("Error en Runtime: ", "View.cpp");
@@ -207,14 +207,14 @@ bool View::inicializar()
     catch(...)
     {
         NotifyError("Error desconocido que no se ha podido especificar.", "View.cpp");
-    }
+    }*/
     return exito;
 }
 
 void View::close()
 {
-    try
-    {
+  //  try
+   // {
         NotifyMessage("Inicia: close", "View.cpp");
         //Destroy this->window}
         SDL_DestroyRenderer( this->gRenderer );
@@ -227,7 +227,7 @@ void View::close()
         IMG_Quit();
         SDL_Quit();
         NotifyMessage("Finaliza: close", "View.cpp");
-    }
+  /*  }
     catch(const std::runtime_error& re)
     {
         NotifyError("Error en Runtime: ", "View.cpp");
@@ -241,5 +241,5 @@ void View::close()
     catch(...)
     {
         NotifyError("Error desconocido que no se ha podido especificar.", "View.cpp");
-    }
+    }*/
 }
