@@ -2,12 +2,18 @@
 cmake_minimum_required(VERSION 3.1)
 
 project (taller CXX)
-include_directories(Model) add_subdirectory( Model )
-include_directories(View)  add_subdirectory( View )
-include_directories(Controller)   add_subdirectory( Controller )
-include_directories(Utils)  add_subdirectory( Utils )
-include_directories(Images)  add_subdirectory( Images )
-include_directories(Configs)  add_subdirectory( Configs )
+include_directories(Model) 
+add_subdirectory( Model )
+include_directories(View)  
+add_subdirectory( View )
+include_directories(Controller)   
+add_subdirectory( Controller )
+include_directories(Utils)  
+add_subdirectory( Utils )
+include_directories(Images)  
+add_subdirectory( Images )
+include_directories(Configs)  
+add_subdirectory( Configs )
 
 
 add_executable(taller main.cpp 
