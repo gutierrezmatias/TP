@@ -9,10 +9,14 @@
 #include "Acelerar.h"
 #include "Desacelerar.h"
 
-#define CANTCOMMANDS 8
+#include "PatearPelota.h"
+#include "RecuperaPelota.h"
+
+#define CANTCOMMANDS 10
 
 
-enum IDCommand {DECVELX, DECVELY, INCVELX, INCVELY, CAMBJUG, STOPJUG, ACCJUG, DESJUG};
+enum IDCommand {DECVELX, DECVELY, INCVELX, INCVELY, CAMBJUG, STOPJUG, ACCJUG, DESJUG,PATPELO,RECUPELO};
+
 
 Controller::Controller(Model* model)
 {
@@ -26,6 +30,10 @@ Controller::Controller(Model* model)
     this->commands[STOPJUG] = new StopJugador(model);
     this->commands[ACCJUG] = new Acelerar(model);
     this->commands[DESJUG] = new Desacelerar(model);
+
+    this->commands[PATPELO] = new PatearPelota(model);
+    this->commands[RECUPELO] = new RecuperaPelota(model);
+
 
     this->quit = false;
 }
@@ -45,70 +53,110 @@ bool Controller::quitPressed()
 
 void Controller::processInput()
 {
-    NotifyMessage("Inicia: processInput", "CONTROLLER");
-    while( SDL_PollEvent( &(this->e) ) != 0 )
+    try
     {
-        if( this->e.type == SDL_QUIT )
+        NotifyMessage("Inicia: processInput", "Controller.cpp");
+        while( SDL_PollEvent( &(this->e) ) != 0 )
         {
-            this->quit = true;
+            if( this->e.type == SDL_QUIT )
+            {
+                this->quit = true;
+            }
+            this->model->addCommand(this->handleEvent(this->e));
         }
-        this->model->addCommand(this->handleEvent(this->e));
+        NotifyMessage("Inicia: processInput", "Controller.cpp");
     }
-    NotifyMessage("Inicia: processInput", "CONTROLLER");
+    catch(const std::runtime_error& re)
+    {
+        NotifyError("Error en Runtime: ", "Controller.cpp");
+        NotifyError(re.what(), "Controller.cpp");
+    }
+    catch(const std::exception& ex)
+    {
+        NotifyError("Ha ocurrido un error: ", "Controller.cpp");
+        NotifyError(ex.what(), "Controller.cpp");
+    }
+    catch(...)
+    {
+        NotifyError("Error desconocido que no se ha podido especificar.", "Controller.cpp");
+    }
 }
 
 Command* Controller::handleEvent(SDL_Event& e)
 {
-    NotifyMessage("Inicia: handleEvent", "CONTROLLER");
     Command* command = nullptr;
-
-    if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
+    try
     {
-        NotifyMessage("Chequeamos: SDL_KEYDOWN", "CONTROLLER");
-        switch( e.key.keysym.sym )
-        {
-        case SDLK_UP:
-            command = this->commands[DECVELY];
-            break;
-        case SDLK_DOWN:
-            command = this->commands[INCVELY];
-            break;
-        case SDLK_LEFT:
-            command = this->commands[DECVELX];
-            break;
-        case SDLK_RIGHT:
-            command = this->commands[INCVELX];
-            break;
-        case SDLK_SPACE:
-            command = this->commands[CAMBJUG];
-            break;
-        case SDLK_f:
-            command = this->commands[ACCJUG];
-        }
-    }
-    //If a key was released
-    else if( e.type == SDL_KEYUP && e.key.repeat == 0 )
-    {
+        NotifyMessage("Inicia: handleEvent", "Controller.cpp");
 
-        NotifyMessage("Chequeamos: SDL_KEYUP", "CONTROLLER");
-        switch( e.key.keysym.sym )
+        if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
         {
-        case SDLK_UP:
-            command = this->commands[STOPJUG];
-            break;
-        case SDLK_DOWN:
-            command = this->commands[STOPJUG];
-            break;
-        case SDLK_LEFT:
-            command = this->commands[STOPJUG];
-            break;
-        case SDLK_RIGHT:
-            command = this->commands[STOPJUG];
-            break;
-        case SDLK_f:
-            command = this->commands[DESJUG];
+            NotifyMessage("Chequeamos: SDL_KEYDOWN", "Controller.cpp");
+            switch( e.key.keysym.sym )
+            {
+            case SDLK_s:
+                command = this->commands[RECUPELO];
+                break;
+            case SDLK_d:
+                command = this->commands[PATPELO];
+                break;
+            case SDLK_UP:
+                command = this->commands[DECVELY];
+                break;
+            case SDLK_DOWN:
+                command = this->commands[INCVELY];
+                break;
+            case SDLK_LEFT:
+                command = this->commands[DECVELX];
+                break;
+            case SDLK_RIGHT:
+                command = this->commands[INCVELX];
+                break;
+            case SDLK_SPACE:
+                command = this->commands[CAMBJUG];
+                break;
+            case SDLK_f:
+                command = this->commands[ACCJUG];
+            }
         }
+        //If a key was released
+        else if( e.type == SDL_KEYUP && e.key.repeat == 0 )
+        {
+
+            NotifyMessage("Chequeamos: SDL_KEYUP", "Controller.cpp");
+            switch( e.key.keysym.sym )
+            {
+            case SDLK_UP:
+                command = this->commands[STOPJUG];
+                break;
+            case SDLK_DOWN:
+                command = this->commands[STOPJUG];
+                break;
+            case SDLK_LEFT:
+                command = this->commands[STOPJUG];
+                break;
+            case SDLK_RIGHT:
+                command = this->commands[STOPJUG];
+                break;
+            case SDLK_f:
+                command = this->commands[DESJUG];
+            }
+        }
+        NotifyMessage("Finaliza: handleEvent", "Controller.cpp");
     }
-    NotifyMessage("Finaliza: handleEvent", "CONTROLLER");
+    catch(const std::runtime_error& re)
+    {
+        NotifyError("Error en Runtime: ", "Controller.cpp");
+        NotifyError(re.what(), "Controller.cpp");
+    }
+    catch(const std::exception& ex)
+    {
+        NotifyError("Ha ocurrido un error: ", "Controller.cpp");
+        NotifyError(ex.what(), "Controller.cpp");
+    }
+    catch(...)
+    {
+        NotifyError("Error desconocido que no se ha podido especificar.", "Controller.cpp");
+    }
     return command;
 }

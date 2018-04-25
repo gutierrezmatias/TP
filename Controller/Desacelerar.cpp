@@ -13,7 +13,6 @@ Desacelerar::~Desacelerar()
 }
 
 void Desacelerar::execute() {
-    printf("desaceleAR");
     Jugador* jugador = this->model->getJugadorActivo();
     jugador->desacelerar();
 }
