@@ -1,47 +1,22 @@
 #include "View_Pelota.h"
 
-View_Pelota::View_Pelota()
-{
-}
-
-View_Pelota::View_Pelota( Pelota *model,SDL_Renderer * gRenderer)
-{
-    this->model = model;
-    if( !texturaPelota.loadFromFile( "Images/pelota2.png",gRenderer) )
-    {
-        printf( "Failed to load dot texture!\n" );
-        // success = false;
-    }
-    else
-    {
-        //Set sprite clips
-        gSpriteClips[ 0 ].x =   0;
-        gSpriteClips[ 0 ].y =   0;
-        gSpriteClips[ 0 ].w =  12;
-        gSpriteClips[ 0 ].h = 12;
-
-
-    }
-}
+View_Pelota::View_Pelota() {}
 
 void View_Pelota::initialize(Pelota *model,SDL_Renderer * gRenderer)
 {
+    int frame = 4;
+    double direccion=90.0;
     this->model = model;
     if( !texturaPelota.loadFromFile( "Images/pelota2.png",gRenderer) )
     {
-        printf( "Failed to load dot texture!\n" );
-        // success = false;
+        NotifyError("No se pudo cargar la Imagen de la pelota, se usara una imagen por defecto", "View_Jugador");
+        texturaPelota.loadFromFile("Images/pelota.png",gRenderer);
     }
-    else
-    {
-        //Set sprite clips
-        gSpriteClips[ 0 ].x =   0;
-        gSpriteClips[ 0 ].y =   0;
-        gSpriteClips[ 0 ].w =  12;
-        gSpriteClips[ 0 ].h = 12;
-
-
-    }
+    //Set sprite clips
+    gSpriteClips[ 0 ].x =   0;
+    gSpriteClips[ 0 ].y =   0;
+    gSpriteClips[ 0 ].w =  12;
+    gSpriteClips[ 0 ].h = 12;
 }
 
 void View_Pelota::SetModel( Pelota * model)

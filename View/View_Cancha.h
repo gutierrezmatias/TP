@@ -3,15 +3,14 @@
 #include <SDL2/SDL.h>
 #include "../Model/LTexture.h"
 #include "../Model/Model_Pelota.h"
-
-class View_Cancha
+#include "../Utils/Util_LoggerSubject.h"
+class View_Cancha : public Util_LoggerSubject
 {
 public:
     View_Cancha();
-    View_Cancha(SDL_Renderer * gRenderer);
 
     void initialize(SDL_Renderer * gRenderer);
-    //esto va a la vista
+
     void render( SDL_Rect * camara,SDL_Renderer * gRenderer );
 
 private:

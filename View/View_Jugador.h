@@ -3,8 +3,8 @@
 #include <SDL2/SDL.h>
 #include "../Model/LTexture.h"
 #include "../Model/Model_Jugador.h"
-
-class View_Jugador
+#include "../Utils/Util_LoggerSubject.h"
+class View_Jugador : public Util_LoggerSubject
 {
 public:
 
@@ -13,8 +13,6 @@ public:
 
     void initialize(Jugador *model,SDL_Renderer * gRenderer);
     void SetModel( Jugador *model);
-
-    //esto va a la vista
     void render( int camX, int camY,SDL_Renderer * gRenderer );
 
 private:
@@ -22,8 +20,7 @@ private:
     LTexture texturaJugador;
     LTexture texturaSeleccionado;
     int frame = 4;
-    double direccion=90.0;
-    //  int WALKING_ANIMATION_FRAMES = 4;
+    double direccion;
     SDL_Rect gSpriteClips[ 4 ];
 };
 

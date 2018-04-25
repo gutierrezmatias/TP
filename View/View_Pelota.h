@@ -3,8 +3,9 @@
 #include <SDL2/SDL.h>
 #include "../Model/LTexture.h"
 #include "../Model/Model_Pelota.h"
+#include "../Utils/Util_LoggerSubject.h"
 
-class View_Pelota
+class View_Pelota : public Util_LoggerSubject
 {
 public:
 
@@ -20,9 +21,8 @@ public:
 private:
     Pelota *model;
     LTexture texturaPelota;
-    int frame = 4;
-    double direccion=90.0;
-    //  int WALKING_ANIMATION_FRAMES = 4;
+    int frame;
+    double direccion;
     SDL_Rect gSpriteClips[ 4 ];
 };
 
