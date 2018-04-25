@@ -32,14 +32,14 @@ Jugador* Model::getJugadorActivo()
 
 void Model::addCommand(Command* command)
 {
-    try
-    {
+   // try
+  //  {
         NotifyMessage("Iniciamos: addCommand", "Model.cpp");
         //hay que tirar una excepcion
         if(command == nullptr) return;
         this->commandsToApply.push_back(command);
         NotifyMessage("Terminamos: addCommand", "Model.cpp");
-    }
+  /*  }
     catch(const std::runtime_error& re)
     {
         NotifyError("Error en Runtime: ", "Model.cpp");
@@ -53,7 +53,7 @@ void Model::addCommand(Command* command)
     catch(...)
     {
         NotifyError("Error desconocido que no se ha podido especificar.", "Model.cpp");
-    }
+    }*/
 }
 
 void Model::cambiarJugadorActivo()
